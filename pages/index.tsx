@@ -1,9 +1,9 @@
-import { useEffect, useState } from 'react';
-import { Htag, Button, P, Tag, Rating } from '../components';
-import { withLayout } from '../layout/Layout';
-import { GetStaticProps } from 'next';
-import axios from 'axios';
-import { MenuItem } from '../interfaces/menu.interface';
+import { useEffect, useState } from "react";
+import { Htag, Button, P, Tag, Rating } from "../components";
+import { withLayout } from "../layout/Layout";
+import { GetStaticProps } from "next";
+import axios from "axios";
+import { MenuItem } from "../interfaces/menu.interface";
 
 function Home({ menu }: HomeProps): JSX.Element {
   const [counter, setCounter] = useState<number>(0);
@@ -12,7 +12,7 @@ function Home({ menu }: HomeProps): JSX.Element {
   useEffect(() => {
     console.log(`Counter: ${counter}`);
     return function cleanup() {
-      console.log('Unmount');
+      console.log("Unmount");
     };
   });
 
@@ -60,7 +60,7 @@ export default withLayout(Home);
 export const getStaticProps: GetStaticProps<HomeProps> = async () => {
   const firstCategory = 0;
   const { data: menu } = await axios.get<MenuItem[]>(
-    process.env.NEXT_PUBLIC_DOMAIN + '/api/top-page/find'
+    process.env.NEXT_PUBLIC_DOMAIN + "/api/top-page/find"
   );
   return {
     props: {
