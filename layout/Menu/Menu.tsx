@@ -1,37 +1,38 @@
-import cn from "classnames";
-import styles from "./Menu.module.css";
-import { format } from "date-fns";
-import { useContext, useEffect } from "react";
-import { AppContext } from "../../context/app.context";
-import { FirstLevelMenuItem, PageItem } from "../../interfaces/menu.interface";
-import CoursesIcon from "./icons/courses.svg";
-import ServicesIcon from "./icons/services.svg";
-import BooksIcon from "./icons/books.svg";
-import ProductsIcon from "./icons/products.svg";
-import { TopLevelCategory } from "../../interfaces/page.interface";
+import cn from 'classnames';
+import styles from './Menu.module.css';
+import { format } from 'date-fns';
+import { useContext, useEffect } from 'react';
+import { AppContext } from '../../context/app.context';
+import { FirstLevelMenuItem, PageItem } from '../../interfaces/menu.interface';
+import CoursesIcon from './icons/courses.svg';
+import ServicesIcon from './icons/services.svg';
+import BooksIcon from './icons/books.svg';
+import ProductsIcon from './icons/products.svg';
+import { TopLevelCategory } from '../../interfaces/page.interface';
+import Link from 'next/link';
 
 const firstLevelMenu: FirstLevelMenuItem[] = [
   {
-    route: "courses",
-    name: "Курсы",
+    route: 'courses',
+    name: 'Курсы',
     icon: <CoursesIcon />,
     id: TopLevelCategory.Corses,
   },
   {
-    route: "services",
-    name: "Сервисы",
+    route: 'services',
+    name: 'Сервисы',
     icon: <ServicesIcon />,
     id: TopLevelCategory.Services,
   },
   {
-    route: "books",
-    name: "Книги",
+    route: 'books',
+    name: 'Книги',
     icon: <BooksIcon />,
     id: TopLevelCategory.Books,
   },
   {
-    route: "products",
-    name: "Товары",
+    route: 'products',
+    name: 'Товары',
     icon: <ProductsIcon />,
     id: TopLevelCategory.Products,
   },
@@ -45,7 +46,7 @@ export const Menu = (): JSX.Element => {
       <>
         {firstLevelMenu.map((m) => (
           <div key={m.route}>
-            <a href={`/${m.route}`}>
+            <Link href={`/${m.route}`}>
               <div
                 className={cn(styles.firstLevel, {
                   [styles.firstLevelActive]: m.id === firstCategory,
@@ -54,7 +55,8 @@ export const Menu = (): JSX.Element => {
                 {m.icon}
                 <span>{m.name}</span>
               </div>
-            </a>
+            </Link>
+
             {m.id === firstCategory && buildSecondLevel(m)}
           </div>
         ))}
@@ -83,14 +85,14 @@ export const Menu = (): JSX.Element => {
 
   const buildThirdLevel = (pages: PageItem[], route: string) => {
     return pages.map((p) => (
-      <a
+      <Link
         href={`/${route}/${p.alias}`}
         className={cn(styles.thirdLevel, {
           [styles.thirdLevelActive]: false,
         })}
       >
         {p.category}
-      </a>
+      </Link>
     ));
   };
 
