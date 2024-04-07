@@ -12,10 +12,10 @@ function Course({ menu, page, products }: CourseProps): JSX.Element {
   return (
     <>
       {products && products.length}
-      {menu.map((m) => (
+      {menu?.map((m) => (
         <li key={m._id.secondCategory}>{m._id.secondCategory}</li>
       ))}
-      {page.alias}
+      {page?.alias}
     </>
   );
 }
@@ -52,6 +52,7 @@ export const getStaticProps: GetStaticProps<CourseProps> = async ({
     const { data: products } = await axios.get<ProductModel[]>(
       process.env.NEXT_PUBLIC_DOMAIN + '/api/product/find'
     );
+
     return {
       props: {
         menu,
@@ -60,7 +61,7 @@ export const getStaticProps: GetStaticProps<CourseProps> = async ({
         products,
       },
     };
-  } catch (error) {
+  } catch {
     return {
       notFound: true,
     };
